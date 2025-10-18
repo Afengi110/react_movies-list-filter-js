@@ -4,11 +4,11 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export const App = () => {
-  const [searchQuery, setSearchQuery] = useState('');
+  const [query, setQuery] = useState('');
 
-  const normalizedQuery = searchQuery.trim().toLowerCase();
+  const normalizedQuery = query.trim().toLowerCase();
 
-  const filteredMovies = moviesFromServer.filter(movie => {
+  const visibleMovies = moviesFromServer.filter(movie => {
     const haystack = `${movie.title} ${movie.description || ''}`.toLowerCase();
 
     return haystack.includes(normalizedQuery);
@@ -30,14 +30,14 @@ export const App = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                value={searchQuery}
-                onChange={event => setSearchQuery(event.target.value)}
+                value={query}
+                onChange={event => setQuery(event.target.value)}
               />
             </div>
           </div>
         </div>
 
-        <MoviesList movies={filteredMovies} />
+        <MoviesList movies={visibleMovies} />
       </div>
 
       <div className="sidebar">Sidebar goes here</div>
